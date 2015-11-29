@@ -1,0 +1,42 @@
+{
+  "name": "kist-backbone-view",
+  "version": "1.0.0",
+  "description": "Additions to Backbone.View.",
+  "main": "index.js",
+  "browser": {
+    "underscore": "backbone/node_modules/underscore"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
+  "license": "MIT",
+  "keywords": [
+    "backbone",
+    "view",
+    "kist"
+  ],
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "vdom-parser": "niksy/vdom-parser",
+    "virtual-dom": "^2.1.1"
+  },
+  "devDependencies": {
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
+    "jquery": "^2.1.4",
+    "jsdom": "^3.1.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksy/kist-backbone-view.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niksy/kist-backbone-view/issues"
+  },
+  "homepage": "https://github.com/niksy/kist-backbone-view#readme"
+}

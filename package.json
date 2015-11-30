@@ -1,6 +1,6 @@
 {
   "name": "kist-backbone-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Additions to Backbone.View.",
   "main": "index.js",
   "browser": {

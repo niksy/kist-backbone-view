@@ -129,7 +129,7 @@ Tested in IE8+ and all modern browsers.
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://travis-ci.org/niksy/kist-backbone-view
-[ci-img]: https://travis-ci.org/niksy/kist-backbone-view.svg
+[ci-img]: https://img.shields.io/travis/niksy/kist-backbone-view/master.svg
 [virtual-dom-explanation]: #virtual-dom
 [virtual-dom]: https://github.com/Matt-Esch/virtual-dom
 [virtual-dom-variant]: https://github.com/niksy/kist-backbone-view/blob/master/virtual-dom.js

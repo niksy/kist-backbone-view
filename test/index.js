@@ -19,9 +19,11 @@ describe('Base', function () {
 
 	var view;
 	var View;
+	var $;
 
 	before(function ( done ) {
 		browser('build-bundle.js', function ( w ) {
+			$ = w.require('jquery');
 			View = w.require('View');
 			done();
 		});
@@ -54,6 +56,20 @@ describe('Base', function () {
 		view.addSubview(new View());
 		view.addSubview(new View());
 		assert.equal(Object.keys(view.subviews).length, 2);
+	});
+
+	it('instance subview should render it’s subview placeholder with `getRenderPlaceholder`', function () {
+		view.addSubview(new View({ tagName: 'p', className: 'subviewPlaceholder' }), 'subviewPlaceholder');
+		assert.equal(view.getSubview('subviewPlaceholder').getRenderPlaceholder(), '<div data-view-cid="' + view.getSubview('subviewPlaceholder').cid + '"></div>');
+	});
+
+	it('instance should properly render subview content with `assignSubview`', function () {
+		view.render = function () {
+			this.$el.html(view.getSubview('subviewPlaceholder').getRenderPlaceholder());
+			view.assignSubview('subviewPlaceholder');
+			return this;
+		};
+		assert.equal($(view.render().el).find('p.subviewPlaceholder').length, 1);
 	});
 
 	it('instance should not have any subviews after removing them with `remove`', function () {

@@ -58,6 +58,25 @@ module.exports = Backbone.View.extend({
 	},
 
 	/**
+	 * Get subview placeholder
+	 *
+	 * @return {String}
+	 */
+	getRenderPlaceholder: function () {
+		return '<div data-view-cid="' + this.cid + '"></div>';
+	},
+
+	/**
+	 * Replace subview placeholder with its real content
+	 *
+	 * @param  {String|Number} key
+	 */
+	assignSubview: function ( key ) {
+		var view = this.getSubview(key);
+		this.$('[data-view-cid="' + view.cid + '"]').replaceWith(view.render().el);
+	},
+
+	/**
 	 * Extends the view's remove, by calling `removeSubviews`
 	 * if any subviews exist
 	 *

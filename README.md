@@ -48,6 +48,22 @@ Key which is used to reference subview.
 
 Removes all subviews from current view.
 
+### getRenderPlaceholder
+
+Returns view’s placeholder element which will be used in resolving for
+`assignSubview`.
+
+### assignSubview(key)
+
+Replaces view’s render placeholder with real content (returned when running
+`render` method).
+
+#### key
+
+Type: `String|Number`
+
+Key which is used to reference subview.
+
 ### renderDiff(content)
 
 Renders [`virtual-dom`][virtual-dom] patches to current view’s element. Available 
@@ -96,6 +112,27 @@ var view = View.extend({
 
 	getCustomKeyView: function () {
 		return this.getSubview('customKey');
+	}
+
+});
+```
+
+Render placeholder and view assign usage.
+
+```js
+var View = require('kist-backbone-view');
+
+var view = View.extend({
+		
+	initialize: function () {
+		this.addSubview(new View(), 'customKey');
+	},
+
+	render: function () {
+		this.$el.html(this.template({
+			customKeyComponent: this.getSubview('customKey').getRenderPlaceholder()
+		}));
+		this.assignSubview('customKey');
 	}
 
 });

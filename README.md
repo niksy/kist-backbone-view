@@ -77,6 +77,16 @@ Type: `String|Number|Element|jQuery`
 
 Content which should be diffed with current element and will be used to patch it.
 
+### fromTemplate
+
+Type: `Boolean`
+
+Should this view be fully constructed from template. Useful when you want to
+completely hold view representation inside template files (default Backbone
+behavior is to have root element outside template).
+
+Available only for Virtual DOM implementation.
+
 ## Virtual DOM
 
 Optionally you can use [`virtual-dom`][virtual-dom] implementation of this module 

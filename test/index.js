@@ -81,7 +81,7 @@ describe('Base', function () {
 
 describe('Virtual DOM', function () {
 
-	var view;
+	var view, viewFromTemplate;
 	var View;
 	var $;
 	var count = 0;
@@ -92,8 +92,8 @@ describe('Virtual DOM', function () {
 
 	before(function ( done ) {
 		browser('build-bundle-virtual-dom.js', function ( w ) {
-			View = w.require('View');
 			$ = w.require('jquery');
+			View = w.require('View');
 			done();
 		});
 	});
@@ -117,6 +117,19 @@ describe('Virtual DOM', function () {
 		var $el = $(template(count));
 		view.renderDiff($el);
 		assert.equal(view.$el.find('.test').text(), '2');
+	});
+
+	it('instance should render it’s view fully from template if `fromTemplate` is set to true', function () {
+		viewFromTemplate = new View({ fromTemplate: true });
+		viewFromTemplate.renderDiff(template(count));
+		count++;
+		viewFromTemplate.renderDiff(template(count));
+		assert.equal(viewFromTemplate.$el.is('span.test'), true);
+		assert.equal(viewFromTemplate.$el.text(), '3');
+	});
+
+	after(function () {
+		view.remove();
 	});
 
 });

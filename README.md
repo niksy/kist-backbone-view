@@ -56,7 +56,9 @@ Returns view’s placeholder element which will be used in resolving for
 ### assignSubview(key)
 
 Replaces view’s render placeholder with real content (returned when running
-`render` method).
+`render` method). If you’re using `renderDiff` for content rendering, explicit
+call for this method is unecessary—it will be called for every subview which
+rendered it’s placeholder with `getRenderPlaceholder`.
 
 #### key
 

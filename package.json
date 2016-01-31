@@ -3,9 +3,6 @@
   "version": "1.1.0",
   "description": "Additions to Backbone.View.",
   "main": "index.js",
-  "browser": {
-    "underscore": "backbone/node_modules/underscore"
-  },
   "scripts": {
     "test": "gulp test"
   },
@@ -18,6 +15,7 @@
   ],
   "dependencies": {
     "backbone": "^1.2.3",
+    "underscore": "^1.8.3",
     "vdom-parser": "niksy/vdom-parser",
     "virtual-dom": "^2.1.1"
   },

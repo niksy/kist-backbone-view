@@ -74,4 +74,13 @@ describe('Basic', function () {
 		assert.equal(view.subviews, undefined); // eslint-disable-line no-undefined
 	});
 
+	it('should have common DOM references', function () {
+		var view = new View();
+		assert.ok(view.$html.is($('html')));
+		assert.ok(view.$body.is($('body')));
+		assert.ok(view.$doc.is($(document)));
+		assert.ok(view.$win.is($(window)));
+		view.remove();
+	});
+
 });

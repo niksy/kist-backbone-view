@@ -3,8 +3,14 @@ var _ = require('underscore');
 
 module.exports = Backbone.View.extend({
 
+	$html: Backbone.$('html'),
+	$body: Backbone.$('body'),
+	$doc: Backbone.$(document),
+	$win: Backbone.$(window),
+
 	constructor: function () {
 		this.subviews = {};
+		Backbone.View.prototype.$body = (Backbone.View.prototype.$body && Backbone.View.prototype.$body.length) ? Backbone.View.prototype.$body : Backbone.$('body');
 		Backbone.View.prototype.constructor.apply(this, arguments);
 	},
 

@@ -4,6 +4,16 @@ var View = require('../index');
 
 describe('Basic', function () {
 
+	var fixture = window.__html__['test/fixtures/index.html'];
+
+	beforeEach(function () {
+		document.body.insertAdjacentHTML('beforeend', '<div id="fixture">' + fixture + '</div>');
+	});
+
+	afterEach(function () {
+		document.body.removeChild(document.getElementById('fixture'));
+	});
+
 	it('should have instance with `getSubview`, `addSubview` and `removeSubviews` methods', function () {
 		var view = new View();
 		assert.equal(typeof view.getSubview, 'function');
@@ -81,6 +91,34 @@ describe('Basic', function () {
 		assert.ok(view.$doc.is($(document)));
 		assert.ok(view.$win.is($(window)));
 		view.remove();
+	});
+
+	it('should cache children elements', function () {
+
+		var ExtendedView = View.extend({
+			childrenEl: {
+				sasha: '#sasha',
+				lilly: '.lilly'
+			}
+		});
+		var view = new ExtendedView({
+			el: '#shelby'
+		});
+
+		assert.equal(view.$sasha.is('#sasha'), true);
+		assert.equal(view.$sasha.selector, '#shelby #sasha');
+		assert.equal(view.$lilly.is('.lilly'), true);
+		assert.equal(view.$lilly.selector, '#shelby .lilly');
+
+		view.cacheChildrenEl({
+			roxie: '.roxie'
+		});
+
+		assert.equal(view.$roxie.is('.roxie'), true);
+		assert.equal(view.$roxie.selector, '#shelby .roxie');
+
+		view.remove();
+
 	});
 
 });

@@ -8,10 +8,34 @@ module.exports = Backbone.View.extend({
 	$doc: Backbone.$(document),
 	$win: Backbone.$(window),
 
-	constructor: function () {
+	childrenEl: {},
+
+	constructor: function ( options ) {
 		this.subviews = {};
 		Backbone.View.prototype.$body = (Backbone.View.prototype.$body && Backbone.View.prototype.$body.length) ? Backbone.View.prototype.$body : Backbone.$('body');
+		_.extend(this, _.pick(options, ['childrenEl']));
 		Backbone.View.prototype.constructor.apply(this, arguments);
+	},
+
+	setElement: function () {
+		Backbone.View.prototype.setElement.apply(this, arguments);
+		this.cacheChildrenEl();
+		return this;
+	},
+
+	/**
+	 * @param  {Object} childrenEl
+	 */
+	cacheChildrenEl: function ( childrenEl ) {
+
+		childrenEl = childrenEl || this.childrenEl;
+
+		Object.keys(childrenEl)
+			.forEach(( key ) => {
+				const selector = this.$(childrenEl[key]);
+				this['$' + key] = selector;
+			});
+
 	},
 
 	/**

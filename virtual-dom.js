@@ -68,7 +68,7 @@ module.exports = View.extend({
 		}
 		_.each(this.subviews, function ( view, key ) {
 			if ( view._usesRenderPlaceholder ) {
-				this.reassignSubview(key);
+				this.assignSubview(key);
 			}
 		}, this);
 		return this;

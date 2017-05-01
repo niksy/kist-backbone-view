@@ -1,18 +1,20 @@
 {
   "name": "kist-backbone-view",
   "version": "1.1.1",
-  "description": "Additions to Backbone.View.",
+  "description": "Extends Backbone.View with useful features.",
   "main": "index.js",
-  "scripts": {
-    "test": "gulp test"
-  },
-  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
   "license": "MIT",
-  "keywords": [
-    "backbone",
-    "view",
-    "kist"
-  ],
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint '{index,test/**/*}.js'",
+    "test": "npm run lint && npm run test:automated",
+    "test:automated": "karma start",
+    "test:automated:local": "karma start --browsers Chrome",
+    "test:automated:local:watch": "npm run test:automated:local -- --auto-watch --no-single-run"
+  },
   "dependencies": {
     "backbone": "^1.2.3",
     "underscore": "^1.8.3",
@@ -21,14 +23,30 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
-    "gulp": "^3.9.0",
-    "gulp-mocha": "^2.2.0",
+    "browserify-istanbul": "^2.0.0",
+    "eslint": "^3.1.1",
+    "eslint-config-niksy": "^3.0.1",
+    "istanbul": "^0.4.3",
     "jquery": "^2.1.4",
-    "jsdom": "^3.1.2"
+    "karma": "^1.1.0",
+    "karma-browserify": "^5.0.5",
+    "karma-browserstack-launcher": "^1.0.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-html2js-preprocessor": "^1.0.0",
+    "karma-mocha": "~1.0.1",
+    "karma-mocha-reporter": "^2.0.3",
+    "mocha": "^3.1.2"
   },
-  "directories": {
-    "test": "test"
+  "engines": {
+    "node": ">=4"
   },
+  "keywords": [
+    "backbone",
+    "extend",
+    "kist",
+    "view"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/niksy/kist-backbone-view.git"

@@ -1,18 +1,79 @@
 # kist-backbone-view
 
-[![Build Status][ci-img]][ci]
+[![Build Status][ci-img]][ci] [![BrowserStack Status][browserstack-img]][browserstack]
 
-Additions to [`Backbone.View`][backbone-view].
+Extends [`Backbone.View`][backbone-view] with useful features.
 
 Features:
 
 * Subview managment: adding, getting and removing
 * [Optional Virtual DOM support for rendering][virtual-dom-explanation]
 
-## Installation
+## Install
 
 ```sh
 npm install kist-backbone-view --save
+```
+
+## Usage
+
+Basic usage.
+
+```js
+var View = require('kist-backbone-view');
+
+var view = View.extend({
+		
+	initialize: function () {
+		this.addSubview(new View());
+		this.addSubview(new View(), 'customKey');
+	},
+
+	getCustomKeyView: function () {
+		return this.getSubview('customKey');
+	}
+
+});
+```
+
+Render placeholder and view assign usage.
+
+```js
+var View = require('kist-backbone-view');
+
+var view = View.extend({
+		
+	initialize: function () {
+		this.addSubview(new View(), 'customKey');
+	},
+
+	render: function () {
+		this.$el.html(this.template({
+			customKeyComponent: this.getSubview('customKey').getRenderPlaceholder()
+		}));
+		this.assignSubview('customKey');
+	}
+
+});
+```
+
+Virtual DOM variant usage.
+
+```js
+var View = require('kist-backbone-view/virtual-dom');
+
+var view = View.extend({
+
+	template: function ( data ) {
+		return '<span class="foo">' + data.count + '</span>';
+	},
+
+	render: function () {
+		this.renderDiff(this.template({ count: 42 }));
+		return this;
+	}
+
+});
 ```
 
 ## API
@@ -108,78 +169,19 @@ render: function () {
 }
 ```
 
-## Examples
-
-Basic usage.
-
-```js
-var View = require('kist-backbone-view');
-
-var view = View.extend({
-		
-	initialize: function () {
-		this.addSubview(new View());
-		this.addSubview(new View(), 'customKey');
-	},
-
-	getCustomKeyView: function () {
-		return this.getSubview('customKey');
-	}
-
-});
-```
-
-Render placeholder and view assign usage.
-
-```js
-var View = require('kist-backbone-view');
-
-var view = View.extend({
-		
-	initialize: function () {
-		this.addSubview(new View(), 'customKey');
-	},
-
-	render: function () {
-		this.$el.html(this.template({
-			customKeyComponent: this.getSubview('customKey').getRenderPlaceholder()
-		}));
-		this.assignSubview('customKey');
-	}
-
-});
-```
-
-Virtual DOM variant usage.
-
-```js
-var View = require('kist-backbone-view/virtual-dom');
-
-var view = View.extend({
-
-	template: function ( data ) {
-		return '<span class="foo">' + data.count + '</span>';
-	},
-
-	render: function () {
-		this.renderDiff(this.template({ count: 42 }));
-		return this;
-	}
-
-});
-```
-
 ## Browser support
 
-Tested in IE8+ and all modern browsers.
+Tested in IE9+ and all modern browsers.
+
+## Test
+
+For local automated tests, run `npm run test:automated:local` (append `:watch` for watcher support).
 
 ## License
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://travis-ci.org/niksy/kist-backbone-view
-[ci-img]: https://img.shields.io/travis/niksy/kist-backbone-view/master.svg
-[virtual-dom-explanation]: #virtual-dom
-[virtual-dom]: https://github.com/Matt-Esch/virtual-dom
-[virtual-dom-variant]: https://github.com/niksy/kist-backbone-view/blob/master/virtual-dom.js
-[backbone-view]: http://backbonejs.org/#View
+[ci-img]: https://travis-ci.org/niksy/kist-backbone-view.svg?branch=master
+[browserstack]: https://www.browserstack.com/
+[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=<badge_key>

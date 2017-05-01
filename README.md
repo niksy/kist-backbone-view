@@ -20,59 +20,52 @@ npm install kist-backbone-view --save
 Basic usage.
 
 ```js
-var View = require('kist-backbone-view');
+const View = require('kist-backbone-view');
 
-var view = View.extend({
-		
+const view = View.extend({
 	initialize: function () {
 		this.addSubview(new View());
 		this.addSubview(new View(), 'customKey');
 	},
-
 	getCustomKeyView: function () {
 		return this.getSubview('customKey');
 	}
-
 });
 ```
 
 Render placeholder and view assign usage.
 
 ```js
-var View = require('kist-backbone-view');
+const View = require('kist-backbone-view');
 
-var view = View.extend({
-		
+const view = View.extend({
 	initialize: function () {
 		this.addSubview(new View(), 'customKey');
 	},
-
 	render: function () {
 		this.$el.html(this.template({
 			customKeyComponent: this.getSubview('customKey').getRenderPlaceholder()
 		}));
 		this.assignSubview('customKey');
 	}
-
 });
 ```
 
 Virtual DOM variant usage.
 
 ```js
-var View = require('kist-backbone-view/virtual-dom');
+const View = require('kist-backbone-view/virtual-dom');
 
-var view = View.extend({
-
+const view = View.extend({
 	template: function ( data ) {
-		return '<span class="foo">' + data.count + '</span>';
+		return `<span>${data.count}</span>`;
 	},
-
 	render: function () {
-		this.renderDiff(this.template({ count: 42 }));
+		this.renderDiff(this.template({
+			count: 42
+		}));
 		return this;
 	}
-
 });
 ```
 
@@ -117,7 +110,9 @@ Returns view’s placeholder element which will be used in resolving for
 ### assignSubview(key)
 
 Replaces view’s render placeholder with real content (returned when running
-`render` method). If you’re using `renderDiff` for content rendering, explicit
+`render` method).
+
+If you’re using `renderDiff` for content rendering, explicit
 call for this method is unecessary—it will be called for every subview which
 rendered it’s placeholder with `getRenderPlaceholder`.
 
@@ -129,8 +124,9 @@ Key which is used to reference subview.
 
 ### renderDiff(content)
 
-Renders [`virtual-dom`][virtual-dom] patches to current view’s element. Available 
-only as part of [virtual-dom variant of this module][virtual-dom-variant].
+Renders [`virtual-dom`][virtual-dom] patches to current view’s element.
+
+Available only for [Virtual DOM implementation][virtual-dom-variant].
 
 #### content
 
@@ -146,7 +142,7 @@ Should this view be fully constructed from template. Useful when you want to
 completely hold view representation inside template files (default Backbone
 behavior is to have root element outside template).
 
-Available only for Virtual DOM implementation.
+Available only for [Virtual DOM implementation][virtual-dom-variant].
 
 ## Virtual DOM
 
@@ -154,20 +150,6 @@ Optionally you can use [`virtual-dom`][virtual-dom] implementation of this modul
 to achieve performant rendering of your content. The difference in applying 
 template content is very subtle—instead of applying new content to DOM element
 directly, you use convenient `renderDiff` method.
-
-```js
-/* Before */
-render: function () {
-	this.$el.html(this.template(data));
-	return this;
-}
-
-/* After */
-render: function () {
-	this.renderDiff(this.template(data));
-	return this;
-}
-```
 
 ## Browser support
 
@@ -184,4 +166,8 @@ MIT © [Ivan Nikolić](http://ivannikolic.com)
 [ci]: https://travis-ci.org/niksy/kist-backbone-view
 [ci-img]: https://travis-ci.org/niksy/kist-backbone-view.svg?branch=master
 [browserstack]: https://www.browserstack.com/
-[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=<badge_key>
+[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=UzVwazZSWHMxakttd2x5M1RZSE1adm1mYjRrM2FvN1dFdTh2eC9hQnNWTT0tLWFIYSttN21TMXFYVTlJOU9nSjJDYXc9PQ==--d68db6abc22b1c36559784b90651cc1dd07d0f43
+[virtual-dom-explanation]: #virtual-dom
+[virtual-dom]: https://github.com/Matt-Esch/virtual-dom
+[virtual-dom-variant]: https://github.com/niksy/kist-backbone-view/blob/master/virtual-dom.js
+[backbone-view]: http://backbonejs.org/#View

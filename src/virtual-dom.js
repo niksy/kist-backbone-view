@@ -1,9 +1,11 @@
-var View = require('./');
-var Backbone = require('backbone');
-var _ = require('underscore');
-var parser = require('vdom-parser');
-var diff = require('virtual-dom/diff');
-var patch = require('virtual-dom/patch');
+'use strict';
+
+const View = require('./');
+const Backbone = require('backbone');
+const _ = require('underscore');
+const parser = require('vdom-parser');
+const diff = require('virtual-dom/diff');
+const patch = require('virtual-dom/patch');
 
 /**
  * @param  {String|Number|Element|jQuery} template
@@ -66,11 +68,11 @@ module.exports = View.extend({
 			patch(this.el, patches);
 			this._vdomTree = newTree;
 		}
-		_.each(this.subviews, function ( view, key ) {
+		_.each(this.subviews, ( view, key ) => {
 			if ( view._usesRenderPlaceholder ) {
 				this.assignSubview(key);
 			}
-		}, this);
+		});
 		return this;
 	}
 

@@ -3,3 +3,7 @@ node_modules/
 npm-debug.log
 test-dist/
 coverage/
+index.js
+virtual-dom.js
+lib/*
+!src/*

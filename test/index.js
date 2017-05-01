@@ -1,13 +1,15 @@
-var assert = require('assert');
-var $ = require('jquery');
-var View = require('../index');
+'use strict';
+
+const assert = require('assert');
+const $ = require('jquery');
+const View = require('../src/index');
 
 describe('Basic', function () {
 
-	var fixture = window.__html__['test/fixtures/index.html'];
+	const fixture = window.__html__['test/fixtures/index.html'];
 
 	beforeEach(function () {
-		document.body.insertAdjacentHTML('beforeend', '<div id="fixture">' + fixture + '</div>');
+		document.body.insertAdjacentHTML('beforeend', `<div id="fixture">${fixture}</div>`);
 	});
 
 	afterEach(function () {
@@ -15,7 +17,7 @@ describe('Basic', function () {
 	});
 
 	it('should have instance with `getSubview`, `addSubview` and `removeSubviews` methods', function () {
-		var view = new View();
+		const view = new View();
 		assert.equal(typeof view.getSubview, 'function');
 		assert.equal(typeof view.addSubview, 'function');
 		assert.equal(typeof view.removeSubviews, 'function');
@@ -23,7 +25,7 @@ describe('Basic', function () {
 	});
 
 	it('should have instance with 3 subviews after adding them', function () {
-		var view = new View();
+		const view = new View();
 		view.addSubview(new View());
 		view.addSubview(new View());
 		view.addSubview(new View(), 'customKey');
@@ -32,21 +34,21 @@ describe('Basic', function () {
 	});
 
 	it('should have instance with 1 subview with key "customKey"', function () {
-		var view = new View();
+		const view = new View();
 		view.addSubview(new View(), 'customKey');
 		assert.equal(view.getSubview('customKey') instanceof View, true);
 		view.remove();
 	});
 
 	it('should have instance without any subviews after removing them with `removeSubviews`', function () {
-		var view = new View();
+		const view = new View();
 		view.removeSubviews();
 		assert.equal(Object.keys(view.subviews).length, 0);
 		view.remove();
 	});
 
 	it('should have instance with 2 subviews after adding them again', function () {
-		var view = new View();
+		const view = new View();
 		view.addSubview(new View());
 		view.addSubview(new View());
 		assert.equal(Object.keys(view.subviews).length, 2);
@@ -54,17 +56,17 @@ describe('Basic', function () {
 	});
 
 	it('should have instance where subview should render it’s subview placeholder with `getRenderPlaceholder`', function () {
-		var view = new View();
+		const view = new View();
 		view.addSubview(new View({
 			tagName: 'p',
 			className: 'subviewPlaceholder'
 		}), 'subviewPlaceholder');
-		assert.equal(view.getSubview('subviewPlaceholder').getRenderPlaceholder(), '<div data-view-cid="' + view.getSubview('subviewPlaceholder').cid + '"></div>');
+		assert.equal(view.getSubview('subviewPlaceholder').getRenderPlaceholder(), `<div data-view-cid="${view.getSubview('subviewPlaceholder').cid}"></div>`);
 		view.remove();
 	});
 
 	it('should have instance which should properly render subview content with `assignSubview`', function () {
-		var view = new View();
+		const view = new View();
 		view.addSubview(new View({
 			tagName: 'p',
 			className: 'subviewPlaceholder'
@@ -79,7 +81,7 @@ describe('Basic', function () {
 	});
 
 	it('should have instance without any subviews after removing them with `remove`', function () {
-		var view = new View();
+		const view = new View();
 		view.remove();
 		assert.equal(view.subviews, undefined); // eslint-disable-line no-undefined
 	});
@@ -95,13 +97,13 @@ describe('Basic', function () {
 
 	it('should cache children elements', function () {
 
-		var ExtendedView = View.extend({
+		const ExtendedView = View.extend({
 			childrenEl: {
 				sasha: '#sasha',
 				lilly: '.lilly'
 			}
 		});
-		var view = new ExtendedView({
+		const view = new ExtendedView({
 			el: '#shelby'
 		});
 
@@ -122,7 +124,7 @@ describe('Basic', function () {
 	});
 
 	it('should have event namespace', function () {
-		var view = new View();
+		const view = new View();
 		assert.ok(/\.backbone\.view\d{1,}/.test(view.ens));
 		view.remove();
 	});

@@ -1,6 +1,8 @@
-var Backbone = require('backbone');
-var _ = require('underscore');
-var eventNamespace = '.backbone';
+'use strict';
+
+const Backbone = require('backbone');
+const _ = require('underscore');
+const eventNamespace = '.backbone';
 
 module.exports = Backbone.View.extend({
 
@@ -19,7 +21,7 @@ module.exports = Backbone.View.extend({
 	},
 
 	_ensureElement: function () {
-		this.ens = eventNamespace + '.' + this.cid;
+		this.ens = `${eventNamespace}.${this.cid}`;
 		Backbone.View.prototype._ensureElement.apply(this, arguments);
 	},
 
@@ -39,7 +41,7 @@ module.exports = Backbone.View.extend({
 		Object.keys(childrenEl)
 			.forEach(( key ) => {
 				const selector = this.$(childrenEl[key]);
-				this['$' + key] = selector;
+				this[`$${key}`] = selector;
 			});
 
 	},
@@ -67,7 +69,7 @@ module.exports = Backbone.View.extend({
 	 */
 	addSubview: function ( view, key ) {
 		if ( !(view instanceof Backbone.View) ) {
-			throw new Error('Subview must be a Backbone.View');
+			throw new TypeError('Subview must be a Backbone.View');
 		}
 		if ( _.isUndefined(key) ) {
 			key = view.cid;
@@ -85,7 +87,7 @@ module.exports = Backbone.View.extend({
 	 */
 	removeSubviews: function () {
 		_.invoke(this.subviews, 'remove');
-		for ( var key in this.subviews ) {
+		for ( let key in this.subviews ) {
 			if ( _.has(this.subviews, key) ) {
 				delete this.subviews[key];
 			}
@@ -99,7 +101,7 @@ module.exports = Backbone.View.extend({
 	 * @return {String}
 	 */
 	getRenderPlaceholder: function () {
-		return '<div data-view-cid="' + this.cid + '"></div>';
+		return `<div data-view-cid="${this.cid}"></div>`;
 	},
 
 	/**
@@ -108,8 +110,8 @@ module.exports = Backbone.View.extend({
 	 * @param  {String|Number} key
 	 */
 	assignSubview: function ( key ) {
-		var view = this.getSubview(key);
-		this.$('[data-view-cid="' + view.cid + '"]').replaceWith(view.render().el);
+		const view = this.getSubview(key);
+		this.$(`[data-view-cid="${view.cid}"]`).replaceWith(view.render().el);
 	},
 
 	/**

@@ -42,8 +42,8 @@ module.exports = function ( config ) {
 		browserify: {
 			debug: true,
 			transform: [
-				
-				['browserify-istanbul', { defaultIgnore: true }]
+				'babelify',
+				['browserify-babel-istanbul', { defaultIgnore: true }]
 			]
 		},
 		coverageReporter: {

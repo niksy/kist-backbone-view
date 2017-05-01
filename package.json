@@ -9,7 +9,9 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "eslint '{index,test/**/*}.js'",
+    "build": "babel src --out-dir ./",
+    "lint": "eslint '{src/**/*,test/**/*}.js'",
+    "prepublish": "npm run build",
     "test": "npm run lint && npm run test:automated",
     "test:automated": "karma start",
     "test:automated:local": "karma start --browsers Chrome",
@@ -22,7 +24,11 @@
     "virtual-dom": "^2.1.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-niksy": "^1.0.0",
+    "babelify": "^7.3.0",
     "browserify": "^12.0.1",
+    "browserify-babel-istanbul": "^0.4.0",
     "browserify-istanbul": "^2.0.0",
     "eslint": "^3.1.1",
     "eslint-config-niksy": "^3.0.1",

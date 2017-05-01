@@ -1,5 +1,6 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
+var eventNamespace = '.backbone';
 
 module.exports = Backbone.View.extend({
 
@@ -15,6 +16,11 @@ module.exports = Backbone.View.extend({
 		Backbone.View.prototype.$body = (Backbone.View.prototype.$body && Backbone.View.prototype.$body.length) ? Backbone.View.prototype.$body : Backbone.$('body');
 		_.extend(this, _.pick(options, ['childrenEl']));
 		Backbone.View.prototype.constructor.apply(this, arguments);
+	},
+
+	_ensureElement: function () {
+		this.ens = eventNamespace + '.' + this.cid;
+		Backbone.View.prototype._ensureElement.apply(this, arguments);
 	},
 
 	setElement: function () {

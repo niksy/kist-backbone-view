@@ -121,4 +121,10 @@ describe('Basic', function () {
 
 	});
 
+	it('should have event namespace', function () {
+		var view = new View();
+		assert.ok(/\.backbone\.view\d{1,}/.test(view.ens));
+		view.remove();
+	});
+
 });

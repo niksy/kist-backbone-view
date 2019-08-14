@@ -1,3 +1,9 @@
+![Deprecated project](https://img.shields.io/badge/status-deprecated-red.svg)
+
+**This project is deprecated.**
+
+---
+
 # kist-backbone-view
 
 [![Build Status][ci-img]][ci] [![BrowserStack Status][browserstack-img]][browserstack]

@@ -33,7 +33,7 @@
     "eslint": "^3.1.1",
     "eslint-config-niksy": "^3.0.1",
     "istanbul": "^0.4.3",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.0",
     "karma": "^1.1.0",
     "karma-browserify": "^5.0.5",
     "karma-browserstack-launcher": "^1.0.0",
